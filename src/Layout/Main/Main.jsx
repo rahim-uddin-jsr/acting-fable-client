@@ -4,11 +4,13 @@ import Navigation from "../../shared/Navigation/Navigation";
 
 const Main = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navigation />
       <Outlet />
-      <Footer />
-    </>
+      <div className="mt-auto">
+        <Footer />
+      </div>
+    </div>
   );
 };
 
