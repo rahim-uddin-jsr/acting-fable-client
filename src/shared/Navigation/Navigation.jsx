@@ -51,8 +51,8 @@ const Navigation = () => {
         <ul className="menu menu-horizontal px-1">{navList}</ul>
       </div>
       <div className="navbar-end">
-        {!username ? (
-          <NavLink to={"/login"} className="btn">
+        {username ? (
+          <NavLink to={"/signin"} className="btn">
             Login
           </NavLink>
         ) : (
