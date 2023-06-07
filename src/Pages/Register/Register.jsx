@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,8 +16,22 @@ const Register = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    console.log(formState);
+    createUser(data.email, data.password)
+      .then((result) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registration complected",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
+
   return (
     <div className="bg-gray-800">
       <div className="p-8 lg:w-1/2 mx-auto">
