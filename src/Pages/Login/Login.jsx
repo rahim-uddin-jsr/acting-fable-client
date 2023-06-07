@@ -1,9 +1,35 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
-
 const Login = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const { loginWithEmail } = useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
+  const onSubmit = (data) => {
+    loginWithEmail(data.email, data.password)
+      .then((result) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login success!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   return (
     <div className="bg-gray-800">
       {" "}
@@ -16,14 +42,13 @@ const Login = () => {
             {" "}
             Or sign in with credentials{" "}
           </p>{" "}
-          <form className="mt-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
             {" "}
             <div className="relative">
-              {" "}
               <input
+                {...register("email", { required: true })}
                 className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
-                id="username"
-                type="text"
+                type="email"
                 placeholder="Email"
               />{" "}
               <div className="absolute left-0 inset-y-0 flex items-center">
@@ -39,10 +64,14 @@ const Login = () => {
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />{" "}
                 </svg>{" "}
               </div>{" "}
-            </div>{" "}
+            </div>
+            {errors.email && (
+              <span className="text-red-400">This field is required</span>
+            )}
             <div className="relative mt-3">
               {" "}
               <input
+                {...register("password", { required: true })}
                 className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                 type={isHide ? "password" : "text"}
                 placeholder="Password"
@@ -103,16 +132,9 @@ const Login = () => {
                 </svg>{" "}
               </div>{" "}
             </div>{" "}
-            <div className="mt-4 flex items-center text-gray-500">
-              {" "}
-              <input
-                type="checkbox"
-                id="remember"
-                name="remember"
-                className="mr-3"
-              />{" "}
-              <label htmlFor="remember">Remember me</label>{" "}
-            </div>{" "}
+            {errors.password && (
+              <span className="text-red-400">This field is required</span>
+            )}
             <div className="flex items-center justify-center mt-8">
               {" "}
               <button className="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
