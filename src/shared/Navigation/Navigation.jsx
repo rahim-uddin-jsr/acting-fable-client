@@ -79,7 +79,7 @@ const Navigation = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://i.ibb.co/zbhLJpp/P3-OLGJ1-copy-1.png" />
+                <img src={user?.photoURL} />
               </div>
             </label>
             <ul

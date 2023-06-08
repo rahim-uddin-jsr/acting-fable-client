@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../../firebase/firebase.config";
@@ -28,22 +29,24 @@ const AuthProvider = ({ children }) => {
   const loginWithGithub = () => {
     return signInWithPopup(auth, githubAuthProvider);
   };
+  const updateUserProfile = (updatedInfo) => {
+    return updateProfile(auth.currentUser, updatedInfo);
+  };
   const logout = () => {
-    signOut(auth);
+    return signOut(auth);
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-      }
+      setUser(currentUser);
     });
     return () => unsubscribe;
-  }, []);
+  }, [user]);
   const authInfo = {
     createUser,
     loginWithEmail,
     loginWithGoogle,
     loginWithGithub,
+    updateUserProfile,
     user,
     logout,
   };

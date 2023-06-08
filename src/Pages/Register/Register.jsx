@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
   const {
@@ -14,18 +14,43 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const img_token = import.meta.env.VITE_IMG_UPLOAD_TOKEN;
+
+  const img_api_url = `https://api.imgbb.com/1/upload?key=${img_token}`;
   const onSubmit = (data) => {
-    console.log(data);
+    const formData = new FormData();
+    formData.append("image", data.photo[0]);
+
     createUser(data.email, data.password)
       .then((result) => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Registration complected",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/");
+        fetch(img_api_url, {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((imgRes) => {
+            if (imgRes.success) {
+              const photoURL = imgRes?.data?.display_url;
+              const updatedInfo = {
+                displayName: data.name,
+                photoURL,
+              };
+              updateUserProfile(updatedInfo)
+                .then(() => {
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Registration complected",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  navigate("/");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
       })
       .catch((err) => {
         alert(err);
