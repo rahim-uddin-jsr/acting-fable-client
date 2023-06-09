@@ -1,11 +1,14 @@
+import axios from "axios";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import ProcessingIndicator from "../../components/ProcessingIndicator/ProcessingIndicator";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Register = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile, loading, setLoading } =
+    useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
   const {
@@ -22,8 +25,10 @@ const Register = () => {
 
   const img_api_url = `https://api.imgbb.com/1/upload?key=${img_token}`;
   const onSubmit = (data) => {
+    console.log(data);
     const formData = new FormData();
     formData.append("image", data.photo[0]);
+    setLoading(true);
     createUser(data.email, data.password)
       .then((result) => {
         fetch(img_api_url, {
@@ -32,14 +37,26 @@ const Register = () => {
         })
           .then((res) => res.json())
           .then((imgRes) => {
+            const photoURL = imgRes?.data?.display_url;
             if (imgRes.success) {
-              const photoURL = imgRes?.data?.display_url;
               const updatedInfo = {
                 displayName: data.name,
                 photoURL,
               };
               updateUserProfile(updatedInfo)
                 .then(() => {
+                  data.photo = photoURL;
+                  data.role = "student";
+                  const { name, photo, phone, gender, email, role } = data;
+                  const userNewData = {
+                    name,
+                    photo,
+                    phone,
+                    gender,
+                    email,
+                    role,
+                  };
+                  sendUsersDataInBackend(userNewData);
                   Swal.fire({
                     position: "center",
                     icon: "success",
@@ -59,8 +76,21 @@ const Register = () => {
         alert(err);
       });
   };
+
+  const sendUsersDataInBackend = (userInfo) => {
+    axios
+      .post("http://localhost:5000/users", userInfo)
+      .then(function (response) {
+        console.log(response);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
-    <div className="bg-gray-800">
+    <div className="bg-gray-800 relative">
       <div className="p-8 lg:w-1/2 mx-auto">
         <GoogleGithubAuth title={"Sign up with"} />
         <div className="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
@@ -110,6 +140,42 @@ const Register = () => {
             {errors.photo && (
               <span className="text-red-400">This field is required</span>
             )}
+            {/* phone number */}
+            <div className="relative mt-3">
+              <input
+                {...register("phone")}
+                className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                type="text"
+                placeholder="Phone number"
+              />
+              <div className="absolute left-0 inset-y-0 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-7 w-7 ml-3 text-gray-400 p-1"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                  />
+                </svg>
+              </div>
+            </div>
+            {/* gender  */}
+            <select
+              defaultValue={"gender"}
+              className="select select-bordered w-full mt-3"
+              {...register("gender")}
+            >
+              <option value="gender">Select you gender?</option>
+              <option value="female">female</option>
+              <option value="male">male</option>
+              <option value="other">other</option>
+            </select>
             {/* email  */}
             <div className="relative mt-3">
               <input
@@ -300,6 +366,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      {loading && <ProcessingIndicator />}
     </div>
   );
 };
