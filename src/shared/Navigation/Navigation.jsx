@@ -33,9 +33,11 @@ const Navigation = () => {
       <li>
         <NavLink to={"/classes"}>Classes</NavLink>
       </li>
-      <li>
-        <NavLink to={"/dashboard"}>Dashboard</NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to={"/dashboard"}>Dashboard</NavLink>
+        </li>
+      )}
     </>
   );
   return (

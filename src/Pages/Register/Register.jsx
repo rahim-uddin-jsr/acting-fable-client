@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -8,29 +8,23 @@ const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
-  const passwordRef = useRef();
-  const [isConfirm, setIsConfirm] = useState(true);
-  const [requiredError, setRequiredError] = useState(false);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+  const passwordsMatch = password === confirmPassword;
 
   const img_token = import.meta.env.VITE_IMG_UPLOAD_TOKEN;
 
   const img_api_url = `https://api.imgbb.com/1/upload?key=${img_token}`;
   const onSubmit = (data) => {
-    const password = passwordRef.current.value;
-    if (!password) {
-      setRequiredError(true);
-      return;
-    }
-
     const formData = new FormData();
     formData.append("image", data.photo[0]);
-    createUser(data.email, password)
+    createUser(data.email, data.password)
       .then((result) => {
         fetch(img_api_url, {
           method: "POST",
@@ -64,12 +58,6 @@ const Register = () => {
       .catch((err) => {
         alert(err);
       });
-  };
-  const handleChange = (e) => {
-    setRequiredError(false);
-    e.target.value !== passwordRef.current.value
-      ? setIsConfirm(false)
-      : setIsConfirm(true);
   };
   return (
     <div className="bg-gray-800">
@@ -148,11 +136,13 @@ const Register = () => {
             {/* password  */}
             <div className="relative mt-3">
               <input
-                required
-                ref={passwordRef}
                 placeholder="Password"
                 type={isHide ? "password" : "text"}
-                // {...register("password", { required: true })}
+                {...register("password", {
+                  required: true,
+                  pattern:
+                    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*.])[A-Za-z\d!@#$%^&*.]{6,}$/,
+                })}
                 className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
               />
               <div className="absolute left-0 inset-y-0 flex items-center">
@@ -209,14 +199,21 @@ const Register = () => {
                 )}
               </div>
             </div>
-            {requiredError && (
+            {errors?.password?.type === "pattern" && (
+              <p role="alert">
+                make sure password at least 6 digit, and at least 1
+                uppercase,lowercase,number,spacial character
+              </p>
+            )}
+            {errors.password && errors.password.type === "required" ? (
               <span className="text-red-400">This field is required</span>
+            ) : (
+              ""
             )}
             {/* confirm password */}
             <div className="relative mt-3">
               <input
-                required
-                onChange={handleChange}
+                {...register("confirmPassword", { required: true })}
                 placeholder="Confirm Password"
                 className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                 type={isHide ? "password" : "text"}
@@ -275,8 +272,16 @@ const Register = () => {
                 )}
               </div>
             </div>
-            {!isConfirm && (
-              <span className="text-red-400">passwords not match</span>
+
+            {errors?.confirmPassword?.type === "required" && (
+              <span className="text-red-400">This field is required</span>
+            )}
+            {!password && !confirmPassword ? "" : ""}
+            {passwordsMatch && password && (
+              <p className="text-green-500">Passwords match.</p>
+            )}
+            {!passwordsMatch && (
+              <p className="text-red-500">Passwords do not match.</p>
             )}
 
             <div className="flex items-center justify-center mt-8">
