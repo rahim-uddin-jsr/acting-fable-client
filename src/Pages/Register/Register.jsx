@@ -1,16 +1,16 @@
-import axios from "axios";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ProcessingIndicator from "../../components/ProcessingIndicator/ProcessingIndicator";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import useSendUsersDataInBackend from "../../hooks/useSendUsersDataInBackend";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Register = () => {
-  const { createUser, updateUserProfile, loading, setLoading } =
-    useContext(AuthContext);
+  const { createUser, updateUserProfile, setLoading } = useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
+  const [sendUsersDataInBackend, loading] = useSendUsersDataInBackend();
   const {
     register,
     handleSubmit,
@@ -64,30 +64,32 @@ const Register = () => {
                     showConfirmButton: false,
                     timer: 1500,
                   });
-                  navigate("/");
                 })
                 .catch((err) => {
+                  setLoading(false);
                   console.log(err);
                 });
             }
           });
       })
       .catch((err) => {
+        setLoading(false);
         alert(err);
       });
   };
 
-  const sendUsersDataInBackend = (userInfo) => {
-    axios
-      .post("http://localhost:5000/users", userInfo)
-      .then(function (response) {
-        console.log(response);
-        setLoading(false);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  // const sendUsersDataInBackend = (userInfo) => {
+  //   axios
+  //     .post("http://localhost:5000/users", userInfo)
+  //     .then(function (response) {
+  //       console.log(response);
+  //       setLoading(false);
+  //       navigate("/");
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <div className="bg-gray-800 relative">

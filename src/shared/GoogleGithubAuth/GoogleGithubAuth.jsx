@@ -2,13 +2,27 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import useSendUsersDataInBackend from "../../hooks/useSendUsersDataInBackend";
 
 const GoogleGithubAuth = ({ title }) => {
+  const [sendUsersDataInBackend, loading] = useSendUsersDataInBackend();
   const { loginWithGoogle, loginWithGithub } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleGoogleSignin = () => {
     loginWithGoogle()
       .then((result) => {
+        const currentUser = result?.user;
+        const { displayName: name, photoURL: photo, email } = currentUser;
+        console.log(name, photo, email);
+        const userInfo = {
+          name,
+          photo,
+          email,
+          role: "student",
+          gender: null,
+          phone: null,
+        };
+        sendUsersDataInBackend(userInfo);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -19,12 +33,26 @@ const GoogleGithubAuth = ({ title }) => {
         navigate("/");
       })
       .catch((err) => {
+        set;
         alert(err);
       });
   };
   const handleGithubSignIN = () => {
     loginWithGithub()
       .then((result) => {
+        console.log(result);
+        const currentUser = result?.user;
+        const { displayName: name, photoURL: photo, email } = currentUser;
+        console.log(name, photo, email);
+        const userInfo = {
+          name,
+          photo,
+          email,
+          role: "student",
+          gender: null,
+          phone: null,
+        };
+        sendUsersDataInBackend(userInfo);
         Swal.fire({
           position: "center",
           icon: "success",
