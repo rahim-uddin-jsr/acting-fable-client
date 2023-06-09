@@ -1,11 +1,15 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
+  console.log(from);
   const {
     register,
     handleSubmit,
@@ -24,7 +28,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+        navigate(from);
       })
       .catch((err) => {
         alert(err);
