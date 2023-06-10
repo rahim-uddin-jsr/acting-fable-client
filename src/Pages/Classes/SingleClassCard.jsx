@@ -1,11 +1,55 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 
 const SingleClassCard = ({ singleClass }) => {
-  const { image, price, name, instructorName, availableSeats } = singleClass;
+  const { image, price, name, instructorName, insId, availableSeats, _id } =
+    singleClass;
+  const [disabled, setDisabled] = useState(true);
+  const [studentInfo, setStudentInfo] = useState([]);
+  const { user } = useContext(AuthContext);
+  const userEmail = user?.email;
+  const userPhoto = user?.photoURL;
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/users?email=${userEmail}&&photo=${userPhoto}`)
+      .then((res) => {
+        setStudentInfo(res.data);
+        if (res.data.role === "instructor" || res.data.role === "admin") {
+          setDisabled(true);
+        }
+        if (!availableSeats) {
+          setDisabled(true);
+        }
+        if (availableSeats && res.data.role === "student") {
+          setDisabled(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [user]);
+  const handleSelectClass = () => {
+    const body = { courseId: _id, studentId: studentInfo._id };
+    axios
+      .post("http://localhost:5000/selected", body)
+      .then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "selected successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
-    <a
-      href="#"
-      className="block rounded-lg p-4 text-left shadow-md shadow-purple-200"
+    <div
+      className={`block rounded-lg p-4 text-left shadow-md shadow-black-200 ${
+        availableSeats == 0 && "bg-red-300"
+      }`}
     >
       <img
         alt="class"
@@ -73,11 +117,17 @@ const SingleClassCard = ({ singleClass }) => {
             </div>
           </div>
           <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-            <button className="btn btn-sm btn-neutral">select</button>
+            <button
+              onClick={handleSelectClass}
+              disabled={disabled}
+              className="btn btn-sm btn-neutral"
+            >
+              select
+            </button>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

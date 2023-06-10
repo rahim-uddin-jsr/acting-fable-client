@@ -14,7 +14,7 @@ const Classes = () => {
     <div>
       <div className="grid grid-cols-3 gap-3">
         {classes.map((singleClass) => (
-          <SingleClassCard singleClass={singleClass} />
+          <SingleClassCard key={singleClass._id} singleClass={singleClass} />
         ))}
       </div>
     </div>
