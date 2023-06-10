@@ -1,8 +1,7 @@
 import React from "react";
 
 const StudentDashBoard = () => {
-    return <div>StudentDashBoard</div>;
-    instructor
+  return <div>StudentDashBoard</div>;
 };
 
 export default StudentDashBoard;
