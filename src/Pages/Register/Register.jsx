@@ -7,7 +7,8 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useSendUsersDataInBackend from "../../hooks/useSendUsersDataInBackend";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Register = () => {
-  const { createUser, updateUserProfile, setLoading } = useContext(AuthContext);
+  const { createUser, updateUserProfile, setLoading, user } =
+    useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
   const [sendUsersDataInBackend, loading] = useSendUsersDataInBackend();

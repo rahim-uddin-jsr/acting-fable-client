@@ -37,7 +37,7 @@ const SingleClassCard = ({ singleClass }) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "selected successfully!",
+            title: "selected success!",
             showConfirmButton: false,
             timer: 1500,
           });
