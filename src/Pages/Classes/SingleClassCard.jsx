@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import useUserRole from "../../hooks/useUserRole";
 
 const SingleClassCard = ({ singleClass }) => {
   const { image, price, name, instructorName, insId, availableSeats, _id } =
@@ -11,26 +12,20 @@ const SingleClassCard = ({ singleClass }) => {
   const { user } = useContext(AuthContext);
   const userEmail = user?.email;
   const userPhoto = user?.photoURL;
-
+  const [isRole] = useUserRole();
   useEffect(() => {
     if (!user) {
       setDisabled(false);
     }
-    axios
-      .get(`http://localhost:5000/users?email=${userEmail}&&photo=${userPhoto}`)
-      .then((res) => {
-        setStudentInfo(res.data);
-        if (res.data.role === "instructor" || res.data.role === "admin") {
-          setDisabled(true);
-        }
-        if (!availableSeats) {
-          setDisabled(true);
-        }
-        if (availableSeats && res.data.role === "student") {
-          setDisabled(false);
-        }
-      })
-      .catch((err) => console.log(err));
+    if (isRole === "instructor" || isRole === "admin") {
+      setDisabled(true);
+    }
+    if (!availableSeats) {
+      setDisabled(true);
+    }
+    if (availableSeats && isRole === "student") {
+      setDisabled(false);
+    }
   }, [user]);
   const handleSelectClass = () => {
     if (!user) {
@@ -43,7 +38,7 @@ const SingleClassCard = ({ singleClass }) => {
       });
       return;
     }
-    const body = { courseId: _id, studentId: studentInfo._id };
+    const body = { courseId: _id, studentId: user.uid };
     axios
       .post("http://localhost:5000/selected", body)
       .then((res) => {

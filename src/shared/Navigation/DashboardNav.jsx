@@ -40,6 +40,16 @@ const DashboardNav = () => {
           </li>
         </>
       )}
+      {user && isRole === "admin" && (
+        <>
+          <li>
+            <NavLink to={`/dashboard/manage-classes`}>Manage Classes</NavLink>
+          </li>
+          <li>
+            <NavLink to={`/dashboard/manage-users`}>Manage Users</NavLink>
+          </li>
+        </>
+      )}
       {user && isRole && (
         <li>
           <NavLink to={`/dashboard/${isRole}`}>Dashboard</NavLink>

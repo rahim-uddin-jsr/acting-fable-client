@@ -29,9 +29,8 @@ const AddClass = () => {
         if (imgRes.success) {
           data.img = imageUrl;
           data.status = "pending";
-          console.log("upload done");
+          data.uid = user.uid;
           axiosSecure.post("/classes", data).then((data) => {
-            console.log("after posting new menu item", data.data);
             if (data.data.insertedId) {
               Swal.fire({
                 position: "top-center",

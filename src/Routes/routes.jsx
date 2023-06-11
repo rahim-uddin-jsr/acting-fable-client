@@ -3,6 +3,8 @@ import Dashboard from "../Layout/Dashboard/Dashboard";
 import Main from "../Layout/Main/Main";
 import Classes from "../Pages/Classes/Classes";
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard/AdminDashboard";
+import ManageClasses from "../Pages/Dashboards/AdminDashboard/ManageClasses/ManageClasses";
+import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers/ManageUsers";
 import AddClass from "../Pages/Dashboards/InstructorDashboard/AddClass/AddClass";
 import InstructorDashboard from "../Pages/Dashboards/InstructorDashboard/InstructorDashboard";
 import MycCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MycCasses";
@@ -57,9 +59,11 @@ const routes = createBrowserRouter([
       {
         path: "addclass",
         element: (
-          <InstructorRoute>
-            <AddClass />
-          </InstructorRoute>
+          <PrivateRoute>
+            <InstructorRoute>
+              <AddClass />
+            </InstructorRoute>
+          </PrivateRoute>
         ),
       },
       {
@@ -83,6 +87,22 @@ const routes = createBrowserRouter([
         element: (
           <AdminRoute>
             <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-classes",
+        element: (
+          <AdminRoute>
+            <ManageClasses />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
           </AdminRoute>
         ),
       },
