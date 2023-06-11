@@ -5,7 +5,7 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useUserRole from "../../hooks/useUserRole";
 
 const SingleClassCard = ({ singleClass }) => {
-  const { image, price, name, instructorName, insId, availableSeats, _id } =
+  const { img, price, name, instructorName, insId, availableSeats, _id } =
     singleClass;
   const [disabled, setDisabled] = useState(true);
   const [studentInfo, setStudentInfo] = useState([]);
@@ -62,7 +62,7 @@ const SingleClassCard = ({ singleClass }) => {
     >
       <img
         alt="class"
-        src={image}
+        src={img}
         className="h-56 w-full rounded-md object-cover"
       />
 
