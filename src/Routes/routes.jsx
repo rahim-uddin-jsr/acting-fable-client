@@ -3,7 +3,9 @@ import Dashboard from "../Layout/Dashboard/Dashboard";
 import Main from "../Layout/Main/Main";
 import Classes from "../Pages/Classes/Classes";
 import AdminDashboard from "../Pages/Dashboards/AdminDashboard/AdminDashboard";
+import AddClass from "../Pages/Dashboards/InstructorDashboard/AddClass/AddClass";
 import InstructorDashboard from "../Pages/Dashboards/InstructorDashboard/InstructorDashboard";
+import MycCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MycCasses";
 import StudentDashBoard from "../Pages/Dashboards/StudentDashBoard/StudentDashBoard";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home/Home";
@@ -49,6 +51,22 @@ const routes = createBrowserRouter([
         element: (
           <InstructorRoute>
             <InstructorDashboard />
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "addclass",
+        element: (
+          <InstructorRoute>
+            <AddClass />
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "myclass",
+        element: (
+          <InstructorRoute>
+            <MycCasses />
           </InstructorRoute>
         ),
       },
