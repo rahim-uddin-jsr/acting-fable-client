@@ -8,6 +8,8 @@ import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers/ManageUs
 import AddClass from "../Pages/Dashboards/InstructorDashboard/AddClass/AddClass";
 import InstructorDashboard from "../Pages/Dashboards/InstructorDashboard/InstructorDashboard";
 import MycCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MycCasses";
+import MyEnrolledClasses from "../Pages/Dashboards/StudentDashBoard/MyEnrolledClasses/MyEnrolledClasses";
+import MySelectedClasses from "../Pages/Dashboards/StudentDashBoard/MySelectedClasses/MySelectedClasses";
 import StudentDashBoard from "../Pages/Dashboards/StudentDashBoard/StudentDashBoard";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home/Home";
@@ -104,6 +106,26 @@ const routes = createBrowserRouter([
           <AdminRoute>
             <ManageUsers />
           </AdminRoute>
+        ),
+      },
+      {
+        path: "selected-classes",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <MySelectedClasses />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "enrolled-classes",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <MyEnrolledClasses />
+            </StudentRoute>
+          </PrivateRoute>
         ),
       },
     ],

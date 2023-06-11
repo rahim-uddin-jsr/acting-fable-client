@@ -50,6 +50,20 @@ const DashboardNav = () => {
           </li>
         </>
       )}
+      {user && isRole === "student" && (
+        <>
+          <li>
+            <NavLink to={`/dashboard/selected-classes`}>
+              My Selected Classes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={`/dashboard/enrolled-classes`}>
+              My Enrolled Classes
+            </NavLink>
+          </li>
+        </>
+      )}
       {user && isRole && (
         <li>
           <NavLink to={`/dashboard/${isRole}`}>Dashboard</NavLink>

@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import useSelectedClaeess from "../../hooks/useSelectedClaeess";
 import useUserRole from "../../hooks/useUserRole";
 
 const SingleClassCard = ({ singleClass }) => {
+  const { selectedClasses, refetch } = useSelectedClaeess();
+
   const { img, price, name, instructorName, insId, availableSeats, _id } =
     singleClass;
   const [disabled, setDisabled] = useState(true);
@@ -26,6 +29,12 @@ const SingleClassCard = ({ singleClass }) => {
     if (availableSeats && isRole === "student") {
       setDisabled(false);
     }
+    const isAdded = selectedClasses.find(
+      (classItem) => classItem.courseId === _id
+    );
+    if (isAdded) {
+      setDisabled(true);
+    }
   }, [user]);
   const handleSelectClass = () => {
     if (!user) {
@@ -38,7 +47,8 @@ const SingleClassCard = ({ singleClass }) => {
       });
       return;
     }
-    const body = { courseId: _id, studentId: user.uid };
+
+    const body = { courseId: _id, email: user.email };
     axios
       .post("http://localhost:5000/selected", body)
       .then((res) => {
@@ -54,6 +64,7 @@ const SingleClassCard = ({ singleClass }) => {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div
       className={`block rounded-lg p-4 text-left shadow-md shadow-black-200 ${
