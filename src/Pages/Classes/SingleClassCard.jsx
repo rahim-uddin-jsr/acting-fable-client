@@ -11,7 +11,11 @@ const SingleClassCard = ({ singleClass }) => {
   const { user } = useContext(AuthContext);
   const userEmail = user?.email;
   const userPhoto = user?.photoURL;
+
   useEffect(() => {
+    if (!user) {
+      setDisabled(false);
+    }
     axios
       .get(`http://localhost:5000/users?email=${userEmail}&&photo=${userPhoto}`)
       .then((res) => {
@@ -29,6 +33,16 @@ const SingleClassCard = ({ singleClass }) => {
       .catch((err) => console.log(err));
   }, [user]);
   const handleSelectClass = () => {
+    if (!user) {
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "Please log in first for select class!",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      return;
+    }
     const body = { courseId: _id, studentId: studentInfo._id };
     axios
       .post("http://localhost:5000/selected", body)

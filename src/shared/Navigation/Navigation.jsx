@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import useUserRole from "../../hooks/useUserRole";
 
 const Navigation = () => {
   const { user, logout } = useContext(AuthContext);
+  const [isRole] = useUserRole();
   const navigate = useNavigate();
   const handleLogOut = () => {
     logout()
@@ -33,9 +35,9 @@ const Navigation = () => {
       <li>
         <NavLink to={"/classes"}>Classes</NavLink>
       </li>
-      {user && (
+      {user && isRole && (
         <li>
-          <NavLink to={"/dashboard"}>Dashboard</NavLink>
+          <NavLink to={`/dashboard/${isRole}`}>Dashboard</NavLink>
         </li>
       )}
     </>

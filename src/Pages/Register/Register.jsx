@@ -7,8 +7,7 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useSendUsersDataInBackend from "../../hooks/useSendUsersDataInBackend";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
 const Register = () => {
-  const { createUser, updateUserProfile, setLoading, user } =
-    useContext(AuthContext);
+  const { createUser, updateUserProfile, user } = useContext(AuthContext);
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
   const [sendUsersDataInBackend, loading] = useSendUsersDataInBackend();
@@ -29,7 +28,6 @@ const Register = () => {
     console.log(data);
     const formData = new FormData();
     formData.append("image", data.photo[0]);
-    setLoading(true);
     createUser(data.email, data.password)
       .then((result) => {
         fetch(img_api_url, {
@@ -67,14 +65,12 @@ const Register = () => {
                   });
                 })
                 .catch((err) => {
-                  setLoading(false);
                   console.log(err);
                 });
             }
           });
       })
       .catch((err) => {
-        setLoading(false);
         alert(err);
       });
   };

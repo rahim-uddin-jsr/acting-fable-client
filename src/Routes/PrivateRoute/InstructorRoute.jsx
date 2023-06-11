@@ -3,6 +3,7 @@ import { Navigate, useLocation } from "react-router";
 import { ScaleLoader } from "react-spinners";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useUserRole from "../../hooks/useUserRole";
+
 const InstructorRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
