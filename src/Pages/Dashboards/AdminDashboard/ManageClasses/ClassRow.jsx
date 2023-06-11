@@ -1,7 +1,6 @@
-import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const ClassRow = ({ classItem, idx }) => {
+const ClassRow = ({ classItem, idx, handleModal, updateStatus }) => {
   const {
     _id,
     availableSeats,
@@ -12,13 +11,16 @@ const ClassRow = ({ classItem, idx }) => {
     price,
     status,
   } = classItem;
-  const handleFeedback = () => {};
-  const updateStatus = (newStatus) => {
-    axios
-      .put(`http://localhost:5000/classes/${_id}`, { newStatus })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  };
+  const [isDisabled, serIsDisabled] = useState(false);
+
+  useEffect(() => {
+    if (status === "denied") {
+      serIsDisabled(true);
+    }
+    if (status !== "denied") {
+      serIsDisabled(false);
+    }
+  }, [status]);
   return (
     <tr>
       <th>{idx}</th>
@@ -38,19 +40,21 @@ const ClassRow = ({ classItem, idx }) => {
         {status}
         <div className="flex justify-around w-full mt-3">
           <button
-            onClick={() => updateStatus("approved")}
+            disabled={isDisabled}
+            onClick={() => updateStatus("approved", _id)}
             className="btn btn-outline rounded-none btn-xs"
           >
             approved
           </button>
           <button
-            onClick={() => updateStatus("denied")}
+            disabled={isDisabled}
+            onClick={() => updateStatus("denied", _id)}
             className="btn btn-outline rounded-none btn-xs"
           >
             denied
           </button>
           <button
-            onClick={handleFeedback}
+            onClick={() => handleModal(_id)}
             className="btn btn-outline rounded-none btn-xs"
           >
             feedback
