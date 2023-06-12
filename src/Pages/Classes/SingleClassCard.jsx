@@ -45,6 +45,7 @@ const SingleClassCard = ({ singleClass }) => {
     }
 
     const body = {
+      classId: _id,
       img,
       price,
       name,

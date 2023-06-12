@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
       }
     });
     return () => unsubscribe();
-  }, [user]);
+  }, []);
   const authInfo = {
     createUser,
     loginWithEmail,
