@@ -30,6 +30,7 @@ const AddClass = () => {
           data.img = imageUrl;
           data.status = "pending";
           data.uid = user.uid;
+          data.price = +data.price;
           axiosSecure.post("/classes", data).then((data) => {
             if (data.data.insertedId) {
               Swal.fire({

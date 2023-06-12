@@ -3,37 +3,33 @@ import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useSelectedClaeess from "../../hooks/useSelectedClaeess";
-import useUserRole from "../../hooks/useUserRole";
 
 const SingleClassCard = ({ singleClass }) => {
   const { selectedClasses, refetch } = useSelectedClaeess();
 
-  const { img, price, name, instructorName, insId, availableSeats, _id } =
-    singleClass;
-  const [disabled, setDisabled] = useState(true);
+  const {
+    img,
+    price,
+    name,
+    instructorName,
+    instructorEmail,
+    insId,
+    availableSeats,
+    _id,
+  } = singleClass;
+  const [disabled, setDisabled] = useState(false);
   const [studentInfo, setStudentInfo] = useState([]);
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const userEmail = user?.email;
   const userPhoto = user?.photoURL;
-  const [isRole] = useUserRole();
+
   useEffect(() => {
-    if (!user) {
-      setDisabled(false);
-    }
-    if (isRole === "instructor" || isRole === "admin") {
-      setDisabled(true);
-    }
     if (!availableSeats) {
       setDisabled(true);
     }
-    if (availableSeats && isRole === "student") {
+
+    if (!user && !loading) {
       setDisabled(false);
-    }
-    const isAdded = selectedClasses.find(
-      (classItem) => classItem.courseId === _id
-    );
-    if (isAdded) {
-      setDisabled(true);
     }
   }, [user]);
   const handleSelectClass = () => {
@@ -48,7 +44,16 @@ const SingleClassCard = ({ singleClass }) => {
       return;
     }
 
-    const body = { courseId: _id, email: user.email };
+    const body = {
+      img,
+      price,
+      name,
+      instructorName,
+      insId,
+      availableSeats,
+      email: user.email,
+      instructorEmail,
+    };
     axios
       .post("http://localhost:5000/selected", body)
       .then((res) => {
@@ -60,6 +65,7 @@ const SingleClassCard = ({ singleClass }) => {
             showConfirmButton: false,
             timer: 1500,
           });
+          // refetch();
         }
       })
       .catch((err) => console.log(err));
