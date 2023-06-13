@@ -7,7 +7,7 @@ import ManageClasses from "../Pages/Dashboards/AdminDashboard/ManageClasses/Mana
 import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers/ManageUsers";
 import AddClass from "../Pages/Dashboards/InstructorDashboard/AddClass/AddClass";
 import InstructorDashboard from "../Pages/Dashboards/InstructorDashboard/InstructorDashboard";
-import MycCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MycCasses";
+import MyCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MyCasses";
 import MyEnrolledClasses from "../Pages/Dashboards/StudentDashBoard/MyEnrolledClasses/MyEnrolledClasses";
 import MySelectedClasses from "../Pages/Dashboards/StudentDashBoard/MySelectedClasses/MySelectedClasses";
 import Payment from "../Pages/Dashboards/StudentDashBoard/Payment/Payment";
@@ -74,7 +74,7 @@ const routes = createBrowserRouter([
         path: "myclass",
         element: (
           <InstructorRoute>
-            <MycCasses />
+            <MyCasses />
           </InstructorRoute>
         ),
       },

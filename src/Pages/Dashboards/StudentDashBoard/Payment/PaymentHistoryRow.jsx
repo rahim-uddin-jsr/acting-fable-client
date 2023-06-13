@@ -22,7 +22,7 @@ const PaymentHistoryRow = ({ payment, idx }) => {
           <span>{formattedTime}</span>
         </div>
       </td>
-      <td>{price}</td>
+    <td>{price}</td>
       <th className="flex flex-col justify-between items-center gap-3 h-full">
         <div className="flex justify-around w-full mt-3">
           <button className="btn rounded-full btn-md btn-accent ">

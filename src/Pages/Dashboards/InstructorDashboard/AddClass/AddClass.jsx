@@ -1,14 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import ProcessingIndicator from "../../../../components/ProcessingIndicator/ProcessingIndicator";
 import { AuthContext } from "../../../../Context/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-
 const AddClass = () => {
   const img_token = import.meta.env.VITE_IMG_UPLOAD_TOKEN;
   const img_api_url = `https://api.imgbb.com/1/upload?key=${img_token}`;
   const [axiosSecure] = useAxiosSecure();
   const { user } = useContext(AuthContext);
+  const [processing, setProcessing] = useState(false);
   const {
     register,
     handleSubmit,
@@ -19,6 +20,7 @@ const AddClass = () => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("image", data.img[0]);
+    setProcessing(true);
     fetch(img_api_url, {
       method: "POST",
       body: formData,
@@ -32,23 +34,41 @@ const AddClass = () => {
           data.uid = user.uid;
           data.price = parseFloat(data.price);
           data.availableSeats = +data.availableSeats;
-          axiosSecure.post("/classes", data).then((data) => {
-            if (data.data.insertedId) {
-              Swal.fire({
-                position: "top-center",
-                icon: "success",
-                title: "Class added successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              reset();
-            }
-          });
+          axiosSecure
+            .post("/classes", data)
+            .then((data) => {
+              if (data.data.insertedId) {
+                Swal.fire({
+                  position: "top-center",
+                  icon: "success",
+                  title: "Class added successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                setProcessing(false);
+                reset();
+              }
+            })
+            .catch((err) => {
+              setProcessing(false);
+            });
         }
+      })
+      .catch((err) => {
+        setProcessing(false);
       });
   };
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-screen-xl relative px-4 py-16 sm:px-6 lg:px-8">
+      {processing && (
+        <ProcessingIndicator />
+        // <div className="w-full absolute z-10  bg-slate-500 h-full">
+        //   <ScaleLoader className="" color="#36d7b7" />
+        //   <span className="text-emerald-400 font-medium opacity-90 text-2xl">
+        //     Processing...
+        //   </span>
+        // </div>
+      )}
       <div className="mx-auto max-w-[1024px]">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
           Let's add new classes!

@@ -4,7 +4,7 @@ import DashboardNav from "../../shared/Navigation/DashboardNav";
 
 const Dashboard = () => {
   return (
-    <div className="max-w-[1024px]">
+    <div className="">
       <DashboardNav />
       <Outlet />
     </div>

@@ -115,7 +115,7 @@ const CheckoutFrom = ({ selectedClasses, totalPrice }) => {
 
   return (
     <>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
+      <form className="flex flex-col checkout-from" onSubmit={handleSubmit}>
         <h1 className="text-2xl font-semibold text-yellow-400 mb-5">
           Please give your payment credential!
         </h1>
