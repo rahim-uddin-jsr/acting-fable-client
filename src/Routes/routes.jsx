@@ -11,6 +11,7 @@ import MycCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MycCass
 import MyEnrolledClasses from "../Pages/Dashboards/StudentDashBoard/MyEnrolledClasses/MyEnrolledClasses";
 import MySelectedClasses from "../Pages/Dashboards/StudentDashBoard/MySelectedClasses/MySelectedClasses";
 import Payment from "../Pages/Dashboards/StudentDashBoard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboards/StudentDashBoard/Payment/PaymentHistory";
 import StudentDashBoard from "../Pages/Dashboards/StudentDashBoard/StudentDashBoard";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home/Home";
@@ -133,6 +134,16 @@ const routes = createBrowserRouter([
           <PrivateRoute>
             <StudentRoute>
               <MyEnrolledClasses />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "transactions",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <PaymentHistory />
             </StudentRoute>
           </PrivateRoute>
         ),

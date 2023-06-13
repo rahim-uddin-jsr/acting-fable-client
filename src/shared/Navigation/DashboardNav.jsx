@@ -62,6 +62,9 @@ const DashboardNav = () => {
               My Enrolled Classes
             </NavLink>
           </li>
+          <li>
+            <NavLink to={`/dashboard/transactions`}>Transactions</NavLink>
+          </li>
         </>
       )}
       {user && isRole && (

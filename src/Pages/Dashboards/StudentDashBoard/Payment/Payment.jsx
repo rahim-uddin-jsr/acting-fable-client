@@ -19,7 +19,6 @@ const Payment = () => {
         <CheckoutFrom
           selectedClasses={selectedClasses}
           totalPrice={totalPriceNumber}
-          handleSuccessMassage={handleSuccessMassage}
         ></CheckoutFrom>
       </Elements>
     </div>
