@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useSelectedClaeess from "../../hooks/useSelectedClaeess";
+import useUserRole from "../../hooks/useUserRole";
 
 const SingleClassCard = ({ singleClass }) => {
   const { selectedClasses, refetch } = useSelectedClaeess();
@@ -17,21 +18,31 @@ const SingleClassCard = ({ singleClass }) => {
     availableSeats,
     _id,
   } = singleClass;
-  const [disabled, setDisabled] = useState(false);
-  const [studentInfo, setStudentInfo] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+  const [addedClasses, setAddedClasses] = useState([]);
   const { user, loading } = useContext(AuthContext);
   const userEmail = user?.email;
   const userPhoto = user?.photoURL;
 
+  const [isRole] = useUserRole();
   useEffect(() => {
-    if (!availableSeats) {
-      setDisabled(true);
+    if (user) {
+      if (isRole === "student") {
+        setDisabled(false);
+      }
+      const ids = selectedClasses.map((items) => {
+        if (items.classId === _id) {
+          setDisabled(true);
+        }
+      });
     }
-
-    if (!user && !loading) {
+    if (!user && availableSeats) {
       setDisabled(false);
     }
-  }, [user]);
+    if (user && availableSeats == 0) {
+      setDisabled(true);
+    }
+  }, [user, selectedClasses, isRole]);
   const handleSelectClass = () => {
     if (!user) {
       Swal.fire({
@@ -66,7 +77,7 @@ const SingleClassCard = ({ singleClass }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          // refetch();
+          refetch();
         }
       })
       .catch((err) => console.log(err));

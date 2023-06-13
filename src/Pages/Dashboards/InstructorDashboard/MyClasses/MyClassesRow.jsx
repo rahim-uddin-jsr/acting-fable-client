@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-const MyClassesRow = ({ classItem, idx, handleModal, updateStatus }) => {
+const MyClassesRow = ({ classItem, idx, handleModal }) => {
   const {
     _id,
     availableSeats,
@@ -11,17 +11,16 @@ const MyClassesRow = ({ classItem, idx, handleModal, updateStatus }) => {
     price,
     status,
     feedback,
+    totalStudent,
   } = classItem;
-  const [isDisabled, serIsDisabled] = useState(false);
-
+  const [newFeedback, setNewFeedback] = useState("");
   useEffect(() => {
     if (status === "denied") {
-      serIsDisabled(true);
+      setNewFeedback(feedback);
+    } else {
+      setNewFeedback("");
     }
-    if (status !== "denied") {
-      serIsDisabled(false);
-    }
-  }, [status]);
+  }, [status, feedback]);
   return (
     <tr className="text-center">
       <th>{idx}</th>
@@ -36,9 +35,10 @@ const MyClassesRow = ({ classItem, idx, handleModal, updateStatus }) => {
       <td>{instructorEmail}</td>
       <td>{name}</td>
       <td>{availableSeats}</td>
+      <td>{totalStudent || 0}</td>
       <td>{price}</td>
       <td>{status}</td>
-      <td>{feedback || "---"}</td>
+      <td>{newFeedback}</td>
       <td>
         <button
           onClick={() => handleModal(_id)}

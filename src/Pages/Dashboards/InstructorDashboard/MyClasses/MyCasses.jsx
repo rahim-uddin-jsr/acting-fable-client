@@ -16,67 +16,25 @@ const MyCasses = () => {
 
   const handleModal = (id) => {
     setShowModal(true);
-    console.log(id);
-    const editedItem = classes.find((classItem) => classItem._id === id);
-    setEditedItem(editedItem);
   };
 
-  const handleFeedback = (e) => {
-    e.preventDefault();
-    const feedback = feedbackRef.current.value;
-    console.log(feedback);
-    axios
-      .put(`http://localhost:5000/classes/${editedItem._id}/?feedback="true"`, {
-        feedback: feedback,
-      })
-      .then((res) => {
-        res.data.acknowledged &&
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Feedback send successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        setShowModal(false);
-        setIsUpdate(!isUpdate);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const updateStatus = (newStatus, _id) => {
-    axios
-      .put(`http://localhost:5000/classes/${_id}`, { newStatus })
-      .then((res) => {
-        res.data.acknowledged &&
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Status Updated Done!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        setIsUpdate(true);
-      })
-      .catch((err) => console.log(err));
-  };
   return (
     <div>
       <h1 className="text-center text-2xl font-bold my-3 text-indigo-600 sm:text-3xl">
         All classes you'r added!
       </h1>
-      <div className="overflow-x-auto">
-        <table className="table">
+      <div className="overflow-x-auto ">
+        <table className="table text-base">
           {/* head */}
           <thead>
-            <tr className="text-center">
+            <tr className="text-center text-base">
               <th>#</th>
               <th>Class Image</th>
               <th>Instructor Name</th>
               <th>Instructor Email</th>
               <th>Class Title</th>
               <th>Available seats</th>
+              <th>Total Student</th>
               <th>Price</th>
               <th>Status</th>
               <th>Feedback</th>
@@ -90,7 +48,6 @@ const MyCasses = () => {
                 classItem={classItem}
                 idx={idx}
                 handleModal={handleModal}
-                updateStatus={updateStatus}
               />
             ))}
           </tbody>
@@ -126,7 +83,7 @@ const MyCasses = () => {
                 </button>
                 <div className="mx-auto bg-base-200 rounded-md py-5">
                   <form
-                    onSubmit={handleFeedback}
+                    // onSubmit={}
                     className="mb-0 mt-6 space-y-4 rounded-lg p-4  sm:p-6 lg:p-8"
                   >
                     <h1 className="text-center text-2xl font-bold text-primary sm:text-3xl">
