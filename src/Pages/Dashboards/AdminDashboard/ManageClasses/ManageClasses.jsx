@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Context/AuthProvider/AuthProvider";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import ClassRow from "./ClassRow";
 
 const ManageClasses = () => {
@@ -11,6 +12,7 @@ const ManageClasses = () => {
   const feedbackRef = useRef("");
   const [isUpdate, setIsUpdate] = useState(false);
   const { user } = useContext(AuthContext);
+  const [axiosSecure] = useAxiosSecure();
   useEffect(() => {
     axios
       .get("http://localhost:5000/classes")
@@ -27,8 +29,8 @@ const ManageClasses = () => {
     e.preventDefault();
     const feedback = feedbackRef.current.value;
     console.log(feedback);
-    axios
-      .put(`http://localhost:5000/classes/${editedItem._id}/?feedback="true"`, {
+    axiosSecure
+      .put(`/classes/${editedItem._id}/?feedback="true"`, {
         feedback: feedback,
       })
       .then((res) => {
@@ -48,8 +50,8 @@ const ManageClasses = () => {
       });
   };
   const updateStatus = (newStatus, _id) => {
-    axios
-      .put(`http://localhost:5000/classes/${_id}`, { newStatus })
+    axiosSecure
+      .put(`/classes/${_id}`, { newStatus })
       .then((res) => {
         res.data.acknowledged &&
           Swal.fire({
@@ -65,11 +67,12 @@ const ManageClasses = () => {
   };
   return (
     <div>
-      <div className="overflow-x-auto">
+      <h2 className="text-5xl my-5">You can manage all classes from here!</h2>
+      <div className="overflow-x-auto rounded-lg">
         <table className="table">
           {/* head */}
-          <thead>
-            <tr>
+          <thead className="bg-slate-700 text-white">
+            <tr className="bg-white shadow-lg shadow-slate-800 rounded-3xl my-3">
               <th>#</th>
               <th>Class Image</th>
               <th>Instructor Name</th>
@@ -142,101 +145,6 @@ const ManageClasses = () => {
                         placeholder="write feedback for user"
                       ></textarea>
                     </form>
-                    {/* <div className="grid md:grid-cols-2 gap-5 ">
-                      <div className="relative">
-                        <input
-                          name="seller_name"
-                          type="text"
-                          defaultValue={sellerName}
-                          placeholder="Enter seller full name"
-                        />
-                      </div>{" "}
-                      <div className="relative">
-                        <input
-                          defaultValue={email}
-                          name="seller_email"
-                          type="email"
-                          className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                          placeholder="Enter full name"
-                        />
-                      </div>
-                      <div className="relative">
-                        <input
-                          defaultValue={productName}
-                          name="name"
-                          type="text"
-                          className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                          placeholder="Enter toy name here"
-                        />
-                      </div>
-                      <div className="relative">
-                        <input
-                          defaultValue={photoURL}
-                          name="photoUrl"
-                          required
-                          type="url"
-                          className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                          placeholder="Enter toy photo url"
-                        />
-                      </div>
-                      <div>
-                        <div className="relative">
-                          <select
-                            name="subCategory"
-                            className="select w-full max-w-xs"
-                            defaultValue={subCategory}
-                          >
-                            <option disabled value={1}>
-                              Select Sub category
-                            </option>
-                            <option value="Teddy Bear">Teddy Bear</option>
-                            <option value={"Unicorn"}>Unicorn</option>
-                            <option value={"Dinosaur"}>Dinosaur</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="Enter Toy price here">
-                        <input
-                          name="price"
-                          defaultValue={price}
-                          required
-                          type="text"
-                          className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                          placeholder="Enter price"
-                        />
-                      </div>
-                      <div className="Enter Rating">
-                        <input
-                          defaultValue={rating}
-                          name="rating"
-                          required
-                          type="text"
-                          className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                          placeholder="Enter Rating here in number"
-                        />
-                      </div>
-                      <div className="Available quantity">
-                        <input
-                          defaultValue={quantity}
-                          name="quantity"
-                          required
-                          type="text"
-                          className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                          placeholder="Available quantity in number"
-                        />
-                      </div>
-                    </div>
-                    <div className="Detail description">
-                      <textarea
-                        defaultValue={description}
-                        rows={5}
-                        ref={descriptionRef}
-                        required
-                        type="text"
-                        className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                        placeholder="Enter detail description"
-                      />
-                    </div> */}
                     <button
                       type="submit"
                       className="block w-full rounded-lg btn-primary px-5 py-3 text-sm font-medium text-white"

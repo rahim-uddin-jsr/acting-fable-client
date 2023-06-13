@@ -22,7 +22,7 @@ const MyClassesRow = ({ classItem, idx, handleModal }) => {
     }
   }, [status, feedback]);
   return (
-    <tr className="text-center">
+    <tr className="bg-white shadow-lg shadow-slate-800 rounded-3xl my-3">
       <th>{idx}</th>
       <td>
         <div className="avatar">

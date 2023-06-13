@@ -2,11 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import Main from "../Layout/Main/Main";
 import Classes from "../Pages/Classes/Classes";
-import AdminDashboard from "../Pages/Dashboards/AdminDashboard/AdminDashboard";
 import ManageClasses from "../Pages/Dashboards/AdminDashboard/ManageClasses/ManageClasses";
 import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers/ManageUsers";
 import AddClass from "../Pages/Dashboards/InstructorDashboard/AddClass/AddClass";
-import InstructorDashboard from "../Pages/Dashboards/InstructorDashboard/InstructorDashboard";
 import MyCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MyCasses";
 import MyEnrolledClasses from "../Pages/Dashboards/StudentDashBoard/MyEnrolledClasses/MyEnrolledClasses";
 import MySelectedClasses from "../Pages/Dashboards/StudentDashBoard/MySelectedClasses/MySelectedClasses";
@@ -34,14 +32,6 @@ const routes = createBrowserRouter([
       { path: "/signin", element: <Login /> },
       { path: "/instructors", element: <Instructor /> },
       { path: "/classes", element: <Classes /> },
-      // {
-      //   path: "/dashboard",
-      //   element: (
-      // <PrivateRoute>
-      //   <StudentDashBoard />
-      // </PrivateRoute>,
-      //   ),
-      // },
     ],
   },
   {
@@ -56,7 +46,8 @@ const routes = createBrowserRouter([
         path: "instructor",
         element: (
           <InstructorRoute>
-            <InstructorDashboard />
+            <StudentDashBoard />
+            {/* <InstructorDashboard /> */}
           </InstructorRoute>
         ),
       },
@@ -98,7 +89,8 @@ const routes = createBrowserRouter([
         path: "admin",
         element: (
           <AdminRoute>
-            <AdminDashboard />
+            <StudentDashBoard />
+            {/* <AdminDashboard /> */}
           </AdminRoute>
         ),
       },

@@ -16,10 +16,10 @@ const MyEnrolledClasses = () => {
   return (
     <div>
       <h2 className="text-5xl my-3">You Enroll This class!</h2>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="bg-slate-700 text-white">
             <tr className="text-center text-xl">
               <th>#</th>
               <th>Class Image</th>

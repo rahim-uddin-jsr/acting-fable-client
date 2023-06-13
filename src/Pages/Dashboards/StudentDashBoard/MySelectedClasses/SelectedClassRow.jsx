@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-const SelectedClassRow = ({ classItem, idx, handleModal, handleDelete }) => {
+const SelectedClassRow = ({ classItem, idx, handleDelete }) => {
   const {
     _id,
     availableSeats,
@@ -14,7 +13,7 @@ const SelectedClassRow = ({ classItem, idx, handleModal, handleDelete }) => {
   const [isDisabled, serIsDisabled] = useState(false);
 
   return (
-    <tr>
+    <tr className="bg-white shadow-lg shadow-slate-800 rounded-3xl my-3">
       <th>{idx}</th>
       <td>
         <div className="avatar">
@@ -37,7 +36,6 @@ const SelectedClassRow = ({ classItem, idx, handleModal, handleDelete }) => {
           >
             <FaTrash />
           </button>
-          
         </div>
       </th>
     </tr>

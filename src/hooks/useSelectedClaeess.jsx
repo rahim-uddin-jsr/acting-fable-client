@@ -1,30 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider/AuthProvider";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useSelectedClaeess = () => {
   const { user, loading } = useContext(AuthContext);
   const token = localStorage.getItem("access_token");
+  const [axiosSecure] = useAxiosSecure();
   const { refetch, data: selectedClasses = [] } = useQuery({
     queryKey: ["selectedClasses", user?.email],
-    enabled: !loading,
+    enabled: !loading && user !== null,
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/selected/${user?.email}`, {
-        headers: {
-          authorization: `bearer ${token}`,
-        },
-      });
-      return res.json();
+      const res = await axiosSecure.get(`/selected/${user?.email}`, {});
+      return res.data;
     },
   });
 
   return { selectedClasses, refetch };
 };
 export default useSelectedClaeess;
-
-// queryFn: async () => {
-//     const res = await fetch(`https://bistro-boss-server-fawn.vercel.app/carts?email=${user?.email}`, { headers: {
-//         authorization: `bearer ${token}`
-//     }})
-//     return res.json();
-// },

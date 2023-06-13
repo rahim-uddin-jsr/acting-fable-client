@@ -29,10 +29,11 @@ const ManageUsers = () => {
   };
   return (
     <div>
-      <div className="overflow-x-auto">
+      <h2 className="text-5xl my-5">You can manage all user from here!</h2>
+      <div className="overflow-x-auto rounded-lg">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="bg-slate-700 text-white">
             <tr className="text-center">
               <th>#</th>
               <th>User Image</th>

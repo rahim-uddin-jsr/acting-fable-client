@@ -75,19 +75,6 @@ const Register = () => {
       });
   };
 
-  // const sendUsersDataInBackend = (userInfo) => {
-  //   axios
-  //     .post("http://localhost:5000/users", userInfo)
-  //     .then(function (response) {
-  //       console.log(response);
-  //       setLoading(false);
-  //       navigate("/");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
-
   return (
     <div className="bg-gray-800 relative">
       <div className="p-8 lg:w-1/2 mx-auto">

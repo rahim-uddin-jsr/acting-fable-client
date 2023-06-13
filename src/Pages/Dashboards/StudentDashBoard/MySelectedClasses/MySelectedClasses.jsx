@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Context/AuthProvider/AuthProvider";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useSelectedClaeess from "../../../../hooks/useSelectedClaeess";
 import SelectedClassRow from "./SelectedClassRow";
 
@@ -14,7 +14,7 @@ const MySelectedClasses = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const { user } = useContext(AuthContext);
   const { selectedClasses, refetch } = useSelectedClaeess();
-
+  const [axiosSecure] = useAxiosSecure();
   const handleModal = (id) => {
     setShowModal(true);
     console.log(id);
@@ -32,8 +32,8 @@ const MySelectedClasses = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:5000/selected/${_id}`)
+        axiosSecure
+          .delete(`/selected/${_id}`)
           .then((res) => {
             if (res.data.deletedCount === 1) {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
@@ -60,10 +60,10 @@ const MySelectedClasses = () => {
           </button>
         </Link>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="bg-slate-700 text-white">
             <tr className="text-center text-xl">
               <th>#</th>
               <th>Class Image</th>

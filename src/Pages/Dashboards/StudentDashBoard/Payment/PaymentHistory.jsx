@@ -19,10 +19,10 @@ const PaymentHistory = () => {
         <h3 className="text-3xl text-left">Transitions</h3>
         <h3 className="text-3xl text-right">Total Ballance: ${total}</h3>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="bg-slate-700 text-white">
             <tr className="text-center text-xl">
               <th>#</th>
               <th>Transition Id</th>

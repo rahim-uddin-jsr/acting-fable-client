@@ -1,6 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -13,7 +12,6 @@ const CheckoutFrom = ({ selectedClasses, totalPrice }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(AuthContext);
-  // const [axiosSecure] = useAxiosSecure()
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);

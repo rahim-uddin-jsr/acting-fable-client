@@ -60,15 +60,7 @@ const AddClass = () => {
   };
   return (
     <div className="mx-auto max-w-screen-xl relative px-4 py-16 sm:px-6 lg:px-8">
-      {processing && (
-        <ProcessingIndicator />
-        // <div className="w-full absolute z-10  bg-slate-500 h-full">
-        //   <ScaleLoader className="" color="#36d7b7" />
-        //   <span className="text-emerald-400 font-medium opacity-90 text-2xl">
-        //     Processing...
-        //   </span>
-        // </div>
-      )}
+      {processing && <ProcessingIndicator />}
       <div className="mx-auto max-w-[1024px]">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
           Let's add new classes!

@@ -1,13 +1,13 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useSelectedClaeess from "../../hooks/useSelectedClaeess";
 import useUserRole from "../../hooks/useUserRole";
 
 const SingleClassCard = ({ singleClass }) => {
   const { selectedClasses, refetch } = useSelectedClaeess();
-
+  const [axiosSecure] = useAxiosSecure();
   const {
     img,
     price,
@@ -66,8 +66,9 @@ const SingleClassCard = ({ singleClass }) => {
       email: user.email,
       instructorEmail,
     };
-    axios
-      .post("http://localhost:5000/selected", body)
+
+    axiosSecure
+      .post("/selected", body)
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({

@@ -6,8 +6,8 @@ import useUserRole from "../../hooks/useUserRole";
 const StudentRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
-  const [isRole, isRoleLoading] = useUserRole();
-  if (loading || isRoleLoading) {
+  const [isRole, isLoading] = useUserRole();
+  if (loading || isLoading) {
     return <ScaleLoader className="" color="#36d7b7" />;
   }
 

@@ -12,7 +12,7 @@ const EnrolledClasesRow = ({ classItem, idx }) => {
   const [isDisabled, serIsDisabled] = useState(false);
 
   return (
-    <tr>
+    <tr className="bg-white shadow-lg shadow-slate-800 rounded-3xl my-3">
       <th>{idx}</th>
       <td>
         <div className="avatar">
@@ -26,7 +26,6 @@ const EnrolledClasesRow = ({ classItem, idx }) => {
       <td>{name}</td>
       <td>{availableSeats}</td>
       <td>{price}</td>
-      
     </tr>
   );
 };

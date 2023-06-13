@@ -11,9 +11,8 @@ const PaymentHistoryRow = ({ payment, idx }) => {
   const formattedDate = DateTime.fromISO(date).toFormat("yyyy-MM-dd");
   const formattedTime = DateTime.fromISO(date).toFormat("HH:mm:ss");
 
-  // Format the time as HH:mm:ss
   return (
-    <tr className="text-center text-xl">
+    <tr className="bg-white shadow-lg shadow-slate-800 rounded-3xl my-3">
       <th>{idx}</th>
       <td>{transactionId}</td>
       <td>
@@ -22,7 +21,7 @@ const PaymentHistoryRow = ({ payment, idx }) => {
           <span>{formattedTime}</span>
         </div>
       </td>
-    <td>{price}</td>
+      <td>{price}</td>
       <th className="flex flex-col justify-between items-center gap-3 h-full">
         <div className="flex justify-around w-full mt-3">
           <button className="btn rounded-full btn-md btn-accent ">
