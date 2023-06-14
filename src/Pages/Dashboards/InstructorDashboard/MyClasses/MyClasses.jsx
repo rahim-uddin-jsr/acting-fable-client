@@ -3,7 +3,7 @@ import { AuthContext } from "../../../../Context/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import MyClassesRow from "./MyClassesRow";
 
-const MyCasses = () => {
+const MyClasses = () => {
   const [classes, setClasses] = useState([]);
   const [axiosSecure] = useAxiosSecure();
   const { user } = useContext(AuthContext);
@@ -12,7 +12,7 @@ const MyCasses = () => {
     axiosSecure
       .get(`/classes/${user.email}`)
       .then((res) => setClasses(res.data));
-  }, []);
+  }, [user.email]);
 
   const handleModal = (id) => {
     setShowModal(true);
@@ -96,4 +96,4 @@ const MyCasses = () => {
   );
 };
 
-export default MyCasses;
+export default MyClasses;

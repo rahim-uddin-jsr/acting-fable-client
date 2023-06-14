@@ -19,7 +19,7 @@ const DashboardNav = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+        navigate("/home");
       })
       .catch((err) => {
         alert(err);
@@ -71,6 +71,12 @@ const DashboardNav = () => {
       <div className="divider"></div>
       <li>
         <NavLink to={`/`}>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/classes"}>Classes</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/instructors"}>Instructors</NavLink>
       </li>
       <li onClick={handleLogOut}>
         <a>Logout</a>

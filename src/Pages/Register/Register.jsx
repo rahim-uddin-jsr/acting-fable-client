@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import ProcessingIndicator from "../../components/ProcessingIndicator/ProcessingIndicator";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import useSendUsersDataInBackend from "../../hooks/useSendUsersDataInBackend";
 import GoogleGithubAuth from "../../shared/GoogleGithubAuth/GoogleGithubAuth";
@@ -56,13 +55,6 @@ const Register = () => {
                     role,
                   };
                   sendUsersDataInBackend(userNewData);
-                  Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Registration complected",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
                 })
                 .catch((err) => {
                   console.log(err);
@@ -352,7 +344,6 @@ const Register = () => {
           </form>
         </div>
       </div>
-      {loading && <ProcessingIndicator />}
     </div>
   );
 };

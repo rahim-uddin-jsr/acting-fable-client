@@ -6,10 +6,10 @@ import useAxiosSecure from "./useAxiosSecure";
 const useUserRole = () => {
   const { user, loading } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
-  
+
   const { data: isRole, isLoading } = useQuery({
     queryKey: ["isRole", user?.email],
-    enabled: !loading && user !== null,
+    enabled: !loading && user?.role !== "student" && user !== null,
     queryFn: async () => {
       const res = await axiosSecure.get(
         `http://localhost:5000/users/role/${user?.email}`

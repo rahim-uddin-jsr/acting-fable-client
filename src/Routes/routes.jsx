@@ -5,7 +5,7 @@ import Classes from "../Pages/Classes/Classes";
 import ManageClasses from "../Pages/Dashboards/AdminDashboard/ManageClasses/ManageClasses";
 import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers/ManageUsers";
 import AddClass from "../Pages/Dashboards/InstructorDashboard/AddClass/AddClass";
-import MyCasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MyCasses";
+import MyClasses from "../Pages/Dashboards/InstructorDashboard/MyClasses/MyClasses";
 import MyEnrolledClasses from "../Pages/Dashboards/StudentDashBoard/MyEnrolledClasses/MyEnrolledClasses";
 import MySelectedClasses from "../Pages/Dashboards/StudentDashBoard/MySelectedClasses/MySelectedClasses";
 import Payment from "../Pages/Dashboards/StudentDashBoard/Payment/Payment";
@@ -28,6 +28,7 @@ const routes = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/home", element: <Home /> },
       { path: "/signup", element: <Register /> },
       { path: "/signin", element: <Login /> },
       { path: "/instructors", element: <Instructor /> },
@@ -65,7 +66,7 @@ const routes = createBrowserRouter([
         path: "myclass",
         element: (
           <InstructorRoute>
-            <MyCasses />
+            <MyClasses />
           </InstructorRoute>
         ),
       },
