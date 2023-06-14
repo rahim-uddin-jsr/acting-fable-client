@@ -10,7 +10,7 @@ const useSendUsersDataInBackend = () => {
   const sendUsersDataInBackend = (userInfo) => {
     // userInfo.uid = user.uid;
     axios
-      .post("http://localhost:5000/users", userInfo)
+      .post("https://acting-fable-server.vercel.app/users", userInfo)
       .then((response) => {
         Swal.fire({
           position: "center",

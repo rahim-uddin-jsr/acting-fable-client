@@ -7,12 +7,12 @@ const Popular = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/classes?popular=1`)
+      .get(`https://acting-fable-server.vercel.app/classes?popular=1`)
       .then((res) => setPopular(res.data));
   }, [popular]);
   console.log();
   return (
-    <div className="mt-24">
+    <div className="mt-48">
       <h1 className="text-5xl uppercase font-bold mb-20">Popular Classes</h1>
       <div className="grid grid-cols-3 gap-5">
         {popular?.map((singleClass) => (

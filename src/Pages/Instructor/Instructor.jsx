@@ -5,17 +5,18 @@ import InstructorCard from "./InstructorCard";
 const Instructor = () => {
   const [instructors, setInstructors] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/instructors").then((res) => {
-      setInstructors(res.data);
-    });
+    axios
+      .get("https://acting-fable-server.vercel.app/instructors")
+      .then((res) => {
+        setInstructors(res.data);
+      });
   }, []);
 
   return (
-    <div>
-      Instructor
-      <br />
-      <br />
-      <br />
+    <div className="mb-20">
+      <h1 className="text-2xl uppercase font-bold my-12">
+        All our instructors
+      </h1>
       <div className="grid grid-cols-3 gap-3">
         {instructors.map((instructor) => (
           <InstructorCard key={instructor._id} instructor={instructor} />

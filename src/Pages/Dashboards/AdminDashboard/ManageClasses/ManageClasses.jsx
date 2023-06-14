@@ -15,7 +15,7 @@ const ManageClasses = () => {
   const [axiosSecure] = useAxiosSecure();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/classes")
+      .get("https://acting-fable-server.vercel.app/classes")
       .then((res) => setClasses(res.data));
   }, [isUpdate]);
 

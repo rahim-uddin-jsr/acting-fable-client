@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
       console.log(currentUser);
       if (currentUser) {
         axios
-          .post("http://localhost:5000/jwt", {
+          .post("https://acting-fable-server.vercel.app/jwt", {
             email: currentUser.email,
             uid: currentUser.uid,
           })

@@ -86,7 +86,7 @@ const SingleClassCard = ({ singleClass }) => {
 
   return (
     <div
-      className={`block rounded-lg p-4 text-left shadow-md shadow-black-200 ${
+      className={`block rounded-lg p-6 text-left bg-base-200 shadow-md shadow-black-200 ${
         availableSeats == 0 && "bg-red-300"
       }`}
     >

@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const InstructorCard = ({ instructor }) => {
-    return (
+  return (
     //   TODO: (optional) See Classes button to show classes by this Instructor. This will take you to a new link
-    <Link className="group relative block bg-black">
+    <Link className="group relative block bg-black rounded-md">
       <img
         alt="instructors"
         src={instructor?.photo}
-        className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
+        className="absolute inset-0 rounded-md h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
       />
 
       <div className="relative p-4 sm:p-6 lg:p-8 ">

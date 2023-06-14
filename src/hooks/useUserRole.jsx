@@ -12,7 +12,7 @@ const useUserRole = () => {
     enabled: !loading && user?.role !== "student" && user !== null,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `http://localhost:5000/users/role/${user?.email}`
+        `https://acting-fable-server.vercel.app/users/role/${user?.email}`
       );
       return res.data.role;
     },

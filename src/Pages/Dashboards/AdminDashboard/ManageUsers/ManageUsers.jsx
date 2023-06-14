@@ -7,12 +7,14 @@ const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   useEffect(() => {
-    axios.get("http://localhost:5000/users").then((res) => setUsers(res.data));
+    axios
+      .get("https://acting-fable-server.vercel.app/users")
+      .then((res) => setUsers(res.data));
   }, [isUpdate]);
 
   const updateRole = (role, _id) => {
     axios
-      .put(`http://localhost:5000/users/${_id}`, { role })
+      .put(`https://acting-fable-server.vercel.app/users/${_id}`, { role })
       .then((res) => {
         if (res.data.acknowledged) {
           Swal.fire({
