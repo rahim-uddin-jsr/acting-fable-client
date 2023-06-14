@@ -72,7 +72,7 @@ const ManageClasses = () => {
         <table className="table">
           {/* head */}
           <thead className="bg-slate-700 text-white">
-            <tr className="bg-white shadow-lg shadow-slate-800 rounded-3xl my-3">
+            <tr>
               <th>#</th>
               <th>Class Image</th>
               <th>Instructor Name</th>

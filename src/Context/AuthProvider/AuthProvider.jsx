@@ -44,8 +44,8 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         axios
           .post("https://acting-fable-server.vercel.app/jwt", {
-            email: currentUser.email,
-            uid: currentUser.uid,
+            email: currentUser?.email,
+            uid: currentUser?.uid,
           })
           .then((res) => {
             localStorage.setItem("access_token", res.data.token);

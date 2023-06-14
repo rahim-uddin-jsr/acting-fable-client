@@ -7,9 +7,7 @@ const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   useEffect(() => {
-    axios
-      .get("https://acting-fable-server.vercel.app/users")
-      .then((res) => setUsers(res.data));
+    axios.get("https://acting-fable-server.vercel.app/users").then((res) => setUsers(res.data));
   }, [isUpdate]);
 
   const updateRole = (role, _id) => {
