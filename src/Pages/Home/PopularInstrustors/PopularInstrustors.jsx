@@ -16,7 +16,7 @@ const PopularInstrustors = () => {
       <h1 className="text-5xl uppercase font-bold mb-20">
         Popular Instructors
       </h1>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
         {popular?.map((instructor) => (
           <InstructorCard key={instructor._id} instructor={instructor} />
         ))}

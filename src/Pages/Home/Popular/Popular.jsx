@@ -14,7 +14,7 @@ const Popular = () => {
   return (
     <div className="mt-48">
       <h1 className="text-5xl uppercase font-bold mb-20">Popular Classes</h1>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
         {popular?.map((singleClass) => (
           <SingleClassCard key={singleClass._id} singleClass={singleClass} />
         ))}

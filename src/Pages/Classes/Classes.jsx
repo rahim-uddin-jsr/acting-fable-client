@@ -17,7 +17,7 @@ const Classes = () => {
       <h1 className="text-2xl uppercase font-bold my-12">
         Get your favorite Acting class!
       </h1>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
         {classes.map((singleClass) => (
           <SingleClassCard key={singleClass._id} singleClass={singleClass} />
         ))}

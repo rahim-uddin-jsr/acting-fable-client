@@ -17,7 +17,7 @@ const Instructor = () => {
       <h1 className="text-2xl uppercase font-bold my-12">
         All our instructors
       </h1>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
         {instructors.map((instructor) => (
           <InstructorCard key={instructor._id} instructor={instructor} />
         ))}
