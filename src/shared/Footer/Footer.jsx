@@ -1,14 +1,14 @@
 const Footer = () => {
   return (
     <footer aria-label="Site Footer" className="bg-base-300">
-      <div className="mx-auto max-w-screen-xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-md">
-          <strong className="block text-center text-xl font-bold text-gray-900 sm:text-3xl">
+      <div className="mx-auto container px-4 pb-8 pt-16 sm:px-6 md:px-0">
+        <div className="w-full mx-auto">
+          <strong className="block text-center font-bold text-orange-1 sm:text-3xl">
             Want us to email you with the latest blockbuster news?
           </strong>
 
-          <form className="mt-6">
-            <div className="relative max-w-lg">
+          <form className="mt-12 mx-auto w-[60%]">
+            <div className="relative">
               <label className="sr-only" htmlFor="email">
                 {" "}
                 Email{" "}
@@ -30,13 +30,13 @@ const Footer = () => {
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-32">
           <div className="mx-auto max-w-sm lg:max-w-none">
-            <p className="mt-4 text-center text-gray-500 lg:text-left lg:text-lg">
+            <p className="mt-4  text-gray-500 lg:text-left lg:text-lg">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Praesentium natus quod eveniet aut perferendis distinctio iusto
               repudiandae, provident velit earum?
             </p>
 
-            <div className="mt-6 flex justify-center gap-4 lg:justify-start">
+            <div className="mt-6 py-3 flex justify-center gap-4 lg:justify-start shadow-lg sm:shadow-none">
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
                 href=""
@@ -120,7 +120,6 @@ const Footer = () => {
                   />
                 </svg>
               </a>
-
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
                 href=""
@@ -128,7 +127,6 @@ const Footer = () => {
                 rel="noreferrer"
               >
                 <span className="sr-only"> Dribbble </span>
-
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -144,8 +142,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 gap-8 text-center lg:grid-cols-3 lg:text-left">
+          <div className="grid grid-cols-3 gap-2 md:gap-8 text-center lg:grid-cols-3 lg:text-left">
             <div>
               <strong className="font-medium text-gray-900"> Services </strong>
 
@@ -245,7 +242,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
         <div className="mt-16 border-t border-gray-100 pt-8">
           <p className="text-center text-xs/relaxed text-gray-500">
             © Company 2022. All rights reserved.

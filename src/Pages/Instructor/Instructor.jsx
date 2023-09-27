@@ -13,11 +13,11 @@ const Instructor = () => {
   }, []);
 
   return (
-    <div className="mb-20">
+    <div className="mb-20 md:container mx-auto">
       <h1 className="text-2xl uppercase font-bold my-12">
         All our instructors
       </h1>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
+      <div className="grid lg:grid-cols-3 grid-cols-2 px-4 sm:px-0 gap-8">
         {instructors.map((instructor) => (
           <InstructorCard key={instructor._id} instructor={instructor} />
         ))}

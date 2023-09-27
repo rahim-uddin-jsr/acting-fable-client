@@ -101,7 +101,7 @@ const SingleClassCard = ({ singleClass }) => {
           <div>
             <dt className="sr-only">Price</dt>
 
-            <dd className="text-sm text-gray-500">${price}</dd>
+            <dd className="text-sm text-gray-500 mb-2">${price}</dd>
           </div>
 
           <div>
@@ -109,7 +109,7 @@ const SingleClassCard = ({ singleClass }) => {
           </div>
         </dl>
 
-        <div className="mt-6 flex items-center gap-8 text-xs">
+        <div className="mt-6 flex items-center justify-between text-xs">
           <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
             <svg
               className="h-4 w-4 text-indigo-700"
@@ -159,7 +159,7 @@ const SingleClassCard = ({ singleClass }) => {
             <button
               onClick={handleSelectClass}
               disabled={disabled}
-              className="btn btn-sm btn-neutral"
+              className="btn btn-sm btn-primary rounded-full capitalize shadow-md"
             >
               select
             </button>

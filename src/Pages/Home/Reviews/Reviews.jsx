@@ -6,12 +6,12 @@ const Reviews = () => {
   return (
     <div>
       <section className="bg-white">
-        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-          <h2 className="text-center text-4xl font-bold tracking-tight sm:text-5xl">
+        <div className="mx-auto container px-4 py-16 sm:px-6 sm:py-24 md:px-0">
+          <h2 className="text-center text-4xl font-bold tracking-tight sm:text-5xl text-orange-1 mb-20">
             Read trusted reviews from our customers
           </h2>
 
-          <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
             <blockquote className="rounded-lg bg-gray-100 p-8">
               <div className="flex items-center gap-4">
                 <img
@@ -21,7 +21,7 @@ const Reviews = () => {
                 />
 
                 <div>
-                  <div className="flex justify-center gap-0.5 text-green-500">
+                  <div className="flex justify-center gap-0.5 text-primary/[.7]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4"
@@ -64,13 +64,13 @@ const Reviews = () => {
                     </svg>
                   </div>
 
-                  <p className="mt-1 text-lg font-medium text-gray-700">
+                  <p className="mt-1 text-lg font-medium text-gray-700 text-left">
                     Paul Starr
                   </p>
                 </div>
               </div>
 
-              <p className="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500">
+              <p className="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500 text-justify">
                 Attending this dream school has been an absolute game-changer
                 for me. The teachers here are incredibly passionate and
                 knowledgeable, always going the extra mile to ensure our
@@ -91,7 +91,7 @@ const Reviews = () => {
                 />
 
                 <div>
-                  <div className="flex justify-center gap-0.5 text-green-500">
+                  <div className="flex justify-center gap-0.5 text-primary/[.7]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4"
@@ -134,11 +134,13 @@ const Reviews = () => {
                     </svg>
                   </div>
 
-                  <p className="mt-1 text-lg font-medium text-gray-700">Mark</p>
+                  <p className="mt-1 text-lg font-medium text-gray-700 text-left">
+                    Mark
+                  </p>
                 </div>
               </div>
 
-              <p className="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500">
+              <p className="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500 text-justify">
                 Enrolling in this dream school has been the best decision of my
                 academic journey. The facilities are top-notch, equipped with
                 state-of-the-art technology that enhances our learning
@@ -161,7 +163,7 @@ const Reviews = () => {
                 />
 
                 <div>
-                  <div className="flex justify-center gap-0.5 text-green-500">
+                  <div className="flex justify-center gap-0.5 text-primary/[.7]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4"
@@ -204,13 +206,13 @@ const Reviews = () => {
                     </svg>
                   </div>
 
-                  <p className="mt-1 text-lg font-medium text-gray-700">
+                  <p className="mt-1 text-lg font-medium text-gray-700 text-left">
                     Emily
                   </p>
                 </div>
               </div>
 
-              <p className="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500">
+              <p className="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500 text-justify">
                 As a student at this dream school, I've had the opportunity to
                 explore my interests and talents in a supportive and inclusive
                 environment. The school's commitment to diversity and inclusion

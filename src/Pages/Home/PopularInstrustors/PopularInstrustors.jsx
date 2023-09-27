@@ -12,11 +12,11 @@ const PopularInstrustors = () => {
   }, []);
   console.log();
   return (
-    <div className="mt-24 mb-20">
-      <h1 className="text-5xl uppercase font-bold mb-20">
+    <div className="mt-24 mb-20 lg:container mx-auto px-4 sm:px-6 md:px-0">
+      <h1 className="text-5xl uppercase font-bold mb-20 text-orange-1">
         Popular Instructors
       </h1>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
         {popular?.map((instructor) => (
           <InstructorCard key={instructor._id} instructor={instructor} />
         ))}
